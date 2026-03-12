@@ -93,39 +93,8 @@ document.querySelectorAll('.section-header, .product-card, .testimonial-card, .a
 });
 
 // ===== Contact Form Handler =====
-contactForm.addEventListener('submit', async function(e) {
-    e.preventDefault();
-    
-    const submitBtn = this.querySelector('button[type="submit"]');
-    const originalText = submitBtn.textContent;
-    
-    // Show loading state
-    submitBtn.textContent = 'Sending...';
-    submitBtn.disabled = true;
-    
-    try {
-        const formData = new FormData(this);
-        
-        const response = await fetch('https://api.web3forms.com/submit', {
-            method: 'POST',
-            body: formData
-        });
-        
-        const result = await response.json();
-        
-        if (result.success) {
-            showNotification('Message sent successfully! We will contact you soon.', 'success');
-            this.reset();
-        } else {
-            showNotification('Failed to send message. Please try again or call us directly.', 'error');
-        }
-    } catch (error) {
-        showNotification('Network error. Please try again or call us directly.', 'error');
-    } finally {
-        submitBtn.textContent = originalText;
-        submitBtn.disabled = false;
-    }
-});
+// Form now submits directly to Web3Forms via HTML action attribute
+// This provides better reliability and shows Web3Forms success page
 
 // ===== Notification System =====
 function showNotification(message, type = 'info') {
